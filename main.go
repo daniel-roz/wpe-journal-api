@@ -5,7 +5,6 @@ import (
 	"api/handlers"
 	"api/repositories"
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -43,6 +42,16 @@ func main() {
 
 	http.HandleFunc("DELETE /journals/{id}", journalHandler.DeleteJournal)
 
-	fmt.Println("Server running on :8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+func server() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	addr := "0.0.0.0:" + port
+	log.Printf("Server running on %s", addr)
+	log.Fatal(http.ListenAndServe(addr, nil))
 }
