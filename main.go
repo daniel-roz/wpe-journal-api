@@ -42,7 +42,7 @@ func main() {
 
 	http.HandleFunc("DELETE /journals/{id}", journalHandler.DeleteJournal)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	server()
 }
 
 func server() {
