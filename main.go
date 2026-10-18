@@ -43,10 +43,8 @@ func main() {
 	mux.HandleFunc("PATCH /journals/{id}", journalHandler.UpdateJournal)
 	mux.HandleFunc("DELETE /journals/{id}", journalHandler.DeleteJournal)
 
-	// Add CORS middleware around the router.
 	handler := corsMiddleware(mux)
 
-	// Render provides PORT through its environment.
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
@@ -67,6 +65,12 @@ func corsMiddleware(next http.Handler) http.Handler {
 			origin == "http://127.0.0.1:5500" ||
 			origin == "http://localhost:5173" ||
 			origin == "http://127.0.0.1:5173"
+
+		// Allow your deployed frontend origin too.
+		frontendOrigin := os.Getenv("FRONTEND_ORIGIN")
+		if frontendOrigin != "" && origin == frontendOrigin {
+			allowed = true
+		}
 
 		if allowed {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
