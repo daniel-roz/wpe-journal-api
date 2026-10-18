@@ -49,11 +49,7 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-
-	addr := "0.0.0.0:" + port
-	log.Printf("Server running on %s", addr)
-
-	log.Fatal(http.ListenAndServe(addr, handler))
+	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
 
 func corsMiddleware(next http.Handler) http.Handler {
