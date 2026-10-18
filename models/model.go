@@ -34,6 +34,9 @@ type Journal struct {
 	Category     Category  `json:"category"`
 	Organization string    `json:"organization"`
 	Date         string    `json:"date"`
+	Venue        string    `json:"venue"`
+	Role         string    `json:"role"`
+	Points       int       `json:"points"`
 	Article      string    `json:"article"`
 	Images       []string  `json:"images"`
 }
@@ -42,6 +45,9 @@ type JournalUpdate struct {
 	Category     *Category `json:"category"`
 	Organization *string   `json:"organization"`
 	Date         *string   `json:"date"`
+	Venue        *string   `json:"venue"`
+	Role         *string   `json:"role"`
+	Points       *int      `json:"points"`
 	Article      *string   `json:"article"`
 	Images       *[]string `json:"images"`
 }

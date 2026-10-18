@@ -43,14 +43,20 @@ func (r *JournalRepository) CreateJournal(ctx context.Context, journal models.Jo
 			category,
 			organization,
 			date,
+			venue,
+			role,
+			points,
 			article,
 			images
-		) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
 		journal.Uuid,
 		journal.Title,
 		journal.Category,
 		journal.Organization,
 		journal.Date,
+		journal.Venue,
+		journal.Role,
+		journal.Points,
 		journal.Article,
 		images,
 	)
@@ -72,6 +78,9 @@ func (r *JournalRepository) FindJournalByID(ctx context.Context, category models
 			category,
 			organization,
 			date,
+			venue,
+			role,
+			points,
 			article,
 			images
 		FROM journals
@@ -84,6 +93,9 @@ func (r *JournalRepository) FindJournalByID(ctx context.Context, category models
 		&journal.Category,
 		&journal.Organization,
 		&journal.Date,
+		&journal.Venue,
+		&journal.Role,
+		&journal.Points,
 		&journal.Article,
 		&images,
 	)
@@ -157,15 +169,21 @@ func (r *JournalRepository) UpdateJournal(ctx context.Context, Uuid uuid.UUID, u
 			category = COALESCE($2, category),
 			organization = COALESCE($3, organization),
 			date = COALESCE($4, date),
-			article = COALESCE($5, article),
-			images = COALESCE($6, images)
-		WHERE uuid = $7
+			venue = COALESCE($5, venue),
+			role = COALESCE($6, role),
+			points = COALESCE($7, points),
+			article = COALESCE($8, article),
+			images = COALESCE($9, images)
+		WHERE uuid = $10
 		RETURNING
 			uuid,
 			title,
 			category,
 			organization,
 			date,
+			venue,
+			role,
+			points,
 			article,
 			images
 		`,
@@ -173,6 +191,9 @@ func (r *JournalRepository) UpdateJournal(ctx context.Context, Uuid uuid.UUID, u
 		update.Category,
 		update.Organization,
 		update.Date,
+		update.Venue,
+		update.Role,
+		update.Points,
 		update.Article,
 		images,
 		Uuid,
@@ -184,6 +205,9 @@ func (r *JournalRepository) UpdateJournal(ctx context.Context, Uuid uuid.UUID, u
 		&journal.Category,
 		&journal.Organization,
 		&journal.Date,
+		&journal.Venue,
+		&journal.Role,
+		&journal.Points,
 		&journal.Article,
 		&imagesData,
 	)
